@@ -1,6 +1,6 @@
 * {
-	padding: 0;
-	margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 html, body {
@@ -9,37 +9,37 @@ html, body {
 }
 
 .game {
-	min-height: 100%;
-	display: flex;
-  	align-items: center;
-	justify-content: center;
-	border-collapse: collapse;
-	background: 
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-collapse: collapse;
+    background: 
 }
 
 .cell {
-	width: 32px;
-	height: 32px;
-	font-weight: bold;
-	font-size: 16px;
-	color: white;
-	text-align: center;
-	cursor: pointer;
-	border: 1px solid black;
+    width: 32px;
+    height: 32px;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid black;
 }
 
 .cell-closed {
-	background: #3469ca;
+    background: #3469ca;
 }
 
 .cell-opened {
-	background: #868686;
+    background: #868686;
 }
 
 .cell-tagged {
-	background: #d6cf00;
+    background: #d6cf00;
 }
 
 .cell-broken {
-	background: #d60000;
+    background: #d60000;
 }
