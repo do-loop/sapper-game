@@ -47,7 +47,7 @@ const GameResult = {
     Defeat  : 3
 }
 
-const settings = new Settings(15, 15, 5);
+const settings = new Settings(15, 15, 30);
 const game = new Game(settings);
 const gameManager = new GameManager(game);
 
