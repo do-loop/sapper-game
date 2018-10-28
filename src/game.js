@@ -41,6 +41,12 @@ const ActionType = {
     Tagging : 2
 };
 
+const GameResult = {
+    Unknown : 1,
+    Victory : 2,
+    Defeat  : 3
+}
+
 class Position {
     constructor(x, y) {
         this.x = x;
@@ -124,9 +130,11 @@ class Game {
     constructor(settings) {
         this.state = GameState.Stopped;
         this.settings = settings;
+        this.result = GameResult.Unknown;
     }
     reset() {
         this.state = GameState.Stopped;
+        this.result = GameResult.Unknown;
         this.matrix = [];
         this.visits = [];
         for (let y = 0; y < this.settings.getHeight(); y++) {
@@ -152,8 +160,13 @@ class Game {
         if (state == CellState.Opened)
             return;
         this._processAction(cell, ActionType.Opening);
-        if (cell.getType() == CellType.Mine || this._isFinished())
+        const type = cell.getType();
+        if (type === CellType.Mine || this._isFinished()) {
+            this.result = type === CellType.Mine
+                ? GameResult.Defeat
+                : GameResult.Victory;
             this.state = GameState.Finished;
+        }
     }
     tag(position) {
         const cell = this._getCell(position);
@@ -187,6 +200,9 @@ class Game {
     }
     getHeight() {
         return this.settings.getHeight();
+    }
+    getResult() {
+        return this.result;
     }
     _getCell(position) {
         return this.matrix[position.y][position.x];
@@ -261,16 +277,20 @@ class Game {
         }
     }
     _isFinished() {
-        let isFinished = true;
-        for (let y = 0; y < this.settings.getHeight(); y++) {
-            for (let x = 0; x < this.settings.getWidth(); x++) {
+        let counter = 0;
+        const height = this.settings.getHeight();
+        const width = this.settings.getWidth();
+        const mines = this.settings.getMines();
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
                 const cell = this.matrix[y][x];
-                // Если есть мина, которая еще не открыта (или не отмечена).
-                if (cell.getType() === CellType.Mine)
-                    if (cell.getState() === CellState.Closed)
-                        return false;
+                const state = cell.getState();
+                if (cell.getType() !== CellType.Mine)
+                    if (state === CellState.Opened)
+                        counter++;
             }
         }
+        return (height * width) - counter === mines;
     }
     _generateMines(position) {
         let mines = this.settings.getMines();
@@ -391,7 +411,16 @@ class GameManager {
                 $.setClass(cell, this._getClass(matrix[i][j]));
                 $.setValue(cell, this._getValue(matrix[i][j]));
             }
-        }           
+        }
+        const gameResult = this.game.getResult();
+        switch (gameResult) {
+            case GameResult.Victory:
+                console.log("Победа!");
+                break;
+            case GameResult.Defeat:
+                console.log("Поражение!");
+                break;
+        }
     }
     _getClass(cell) {
         switch (cell.getState()) {
@@ -420,7 +449,7 @@ class GameManager {
     }
 }
 
-const settings = new Settings(15, 15, 15);
+const settings = new Settings(15, 15, 5);
 const game = new Game(settings);
 const gameManager = new GameManager(game);
 
