@@ -25,7 +25,6 @@ class GameManager {
     }
     _display() {
         this.game.openMatrix();
-        this._update();
     }
     _create() {
         const game = $.getById("game");
