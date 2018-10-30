@@ -3,6 +3,8 @@ class GameManager {
         this.game = game;
     }
     tag(position) {
+        if (this.game.getState() === GameState.Finished)
+            return;
         this.game.tag(position);
         this._update();
     }
