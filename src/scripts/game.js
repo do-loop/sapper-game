@@ -186,42 +186,42 @@ class Game {
         const height = this.settings.getHeight();
         if (position.y - 1 >= 0 && position.x - 1 >= 0) {
             const neighbor = this.matrix[position.y - 1][position.x - 1];
-            if (neighbor.getType() != CellType.Mine)
+            if (neighbor.getType() !== CellType.Mine)
                 neighbor.setValue(neighbor.getValue() + 1);
         }
         if (position.y - 1 >= 0) {
             const neighbor = this.matrix[position.y - 1][position.x];
-            if (neighbor.getType() != CellType.Mine)
+            if (neighbor.getType() !== CellType.Mine)
                 neighbor.setValue(neighbor.getValue() + 1);
         }
         if (position.y - 1 >= 0 && position.x + 1 < width) {
             const neighbor = this.matrix[position.y - 1][position.x + 1];
-            if (neighbor.getType() != CellType.Mine)
+            if (neighbor.getType() !== CellType.Mine)
                 neighbor.setValue(neighbor.getValue() + 1);
         }
         if (position.x + 1 < width) {
             const neighbor = this.matrix[position.y][position.x + 1];
-            if (neighbor.getType() != CellType.Mine)
+            if (neighbor.getType() !== CellType.Mine)
                 neighbor.setValue(neighbor.getValue() + 1);
         }
         if (position.y + 1 < height && position.x + 1 < width) {
             const neighbor = this.matrix[position.y + 1][position.x + 1];
-            if (neighbor.getType() != CellType.Mine)
+            if (neighbor.getType() !== CellType.Mine)
                 neighbor.setValue(neighbor.getValue() + 1);
         }
-        if (position.y + 1 < height)  {
+        if (position.y + 1 < height) {
             const neighbor = this.matrix[position.y + 1][position.x];
-            if (neighbor.getType() != CellType.Mine)
+            if (neighbor.getType() !== CellType.Mine)
                 neighbor.setValue(neighbor.getValue() + 1);
         }
-        if (position.y + 1 < height && position.x - 1 >= 0)  {
+        if (position.y + 1 < height && position.x - 1 >= 0) {
             const neighbor = this.matrix[position.y + 1][position.x - 1];
-            if (neighbor.getType() != CellType.Mine)
+            if (neighbor.getType() !== CellType.Mine)
                 neighbor.setValue(neighbor.getValue() + 1);
         }
-        if (position.x - 1 >= 0)  {
+        if (position.x - 1 >= 0) {
             const neighbor = this.matrix[position.y][position.x - 1];
-            if (neighbor.getType() != CellType.Mine)
+            if (neighbor.getType() !== CellType.Mine)
                 neighbor.setValue(neighbor.getValue() + 1);
         }
     }
