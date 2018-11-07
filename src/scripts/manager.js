@@ -57,12 +57,13 @@ class GameManager {
             }
         }
         const gameResult = this.game.getResult();
+        const message = $.getById("message");
         switch (gameResult) {
             case GameResult.Victory:
-                console.log("Победа!");
+                $.setValue(message, "Победа!");
                 break;
             case GameResult.Defeat:
-                console.log("Поражение!");
+                $.setValue(message, "Поражение!");
                 break;
         }
     }

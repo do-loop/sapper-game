@@ -166,13 +166,23 @@ class Game {
     }
     _generateMines(position) {
         let mines = this.settings.getMines();
+        const positions = [
+            new Position(position.x, position.y),
+            new Position(position.x - 1, position.y - 1),
+            new Position(position.x, position.y - 1),
+            new Position(position.x + 1, position.y - 1),
+            new Position(position.x + 1, position.y),
+            new Position(position.x + 1, position.y + 1),
+            new Position(position.x, position.y + 1),
+            new Position(position.x - 1, position.y + 1),
+            new Position(position.x - 1, position.y)
+        ];
         while (mines > 0) {
             const x = $.getRandom(this.settings.getWidth() - 1);
             const y = $.getRandom(this.settings.getHeight() - 1);
             const cell = this.matrix[y][x];
             if (cell.getType() !== CellType.Mine) {
-                // Чтобы не создать мину в клетке, где было первое нажатие.
-                if (position.x != x && position.y != y) {
+                if (positions.findIndex(p => p.x === x && p.y === y) === -1) {
                     this._generateMinesInternal(cell);
                     mines--;
                 }

@@ -1,0 +1,11 @@
+.message {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+}
+
+.message__text {
+    color: black;
+    font-size: 25px;
+    font-weight: bold;
+}

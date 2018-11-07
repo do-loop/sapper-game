@@ -1,13 +1,3 @@
-* {
-    padding: 0;
-    margin: 0;
-}
-
-html, body {
-  height: 100%;
-  overflow: hidden;
-}
-
 .game {
     min-height: 100%;
     display: flex;
