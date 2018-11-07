@@ -106,47 +106,27 @@ class Game {
         cell.open();
         const width = this.settings.getWidth();
         const height = this.settings.getHeight();
+        const update = (position) => {
+            const neighbor = this._getCell(position);
+            this._openInternal(neighbor);
+        };
         this.visits[current.y][current.x] = true;
-        if (current.y - 1 >= 0 && current.x - 1 >= 0) {
-            const position = new Position(current.x - 1, current.y - 1);
-            const neighbor = this._getCell(position);
-            this._openInternal(neighbor);
-        }
-        if (current.y - 1 >= 0) {
-            const position = new Position(current.x, current.y - 1);
-            const neighbor = this._getCell(position);
-            this._openInternal(neighbor);
-        }
-        if (current.y - 1 >= 0 && current.x + 1 < width) {
-            const position = new Position(current.x + 1, current.y - 1);
-            const neighbor = this._getCell(position);
-            this._openInternal(neighbor);
-        }
-        if (current.x + 1 < width) {
-            const position = new Position(current.x + 1, current.y);
-            const neighbor = this._getCell(position);
-            this._openInternal(neighbor);
-        }
-        if (current.y + 1 < height && current.x + 1 < width) {
-            const position = new Position(current.x + 1, current.y + 1);
-            const neighbor = this._getCell(position);
-            this._openInternal(neighbor);
-        }
-        if (current.y + 1 < height) {
-            const position = new Position(current.x, current.y + 1);
-            const neighbor = this._getCell(position);
-            this._openInternal(neighbor);
-        }
-        if (current.y + 1 < height && current.x - 1 >= 0) {
-            const position = new Position(current.x - 1, current.y + 1);
-            const neighbor = this._getCell(position);
-            this._openInternal(neighbor);
-        }
-        if (current.x - 1 >= 0) {
-            const position = new Position(current.x - 1, current.y);
-            const neighbor = this._getCell(position);
-            this._openInternal(neighbor);
-        }
+        if (current.y - 1 >= 0 && current.x - 1 >= 0)
+            update(new Position(current.x - 1, current.y - 1));
+        if (current.y - 1 >= 0)
+            update(new Position(current.x, current.y - 1))
+        if (current.y - 1 >= 0 && current.x + 1 < width)
+            update(new Position(current.x + 1, current.y - 1));
+        if (current.x + 1 < width)
+            update(new Position(current.x + 1, current.y));
+        if (current.y + 1 < height && current.x + 1 < width)
+            update(new Position(current.x + 1, current.y + 1));
+        if (current.y + 1 < height)
+            update(new Position(current.x, current.y + 1));
+        if (current.y + 1 < height && current.x - 1 >= 0)
+            update(new Position(current.x - 1, current.y + 1));
+        if (current.x - 1 >= 0)
+            update(new Position(current.x - 1, current.y));
     }
     _isFinished() {
         let counter = 0;
@@ -194,45 +174,26 @@ class Game {
         const position = cell.getPosition(); 
         const width = this.settings.getWidth();
         const height = this.settings.getHeight();
-        if (position.y - 1 >= 0 && position.x - 1 >= 0) {
-            const neighbor = this.matrix[position.y - 1][position.x - 1];
+        const update = (position) => {
+            const neighbor = this.matrix[position.y][position.x];
             if (neighbor.getType() !== CellType.Mine)
                 neighbor.setValue(neighbor.getValue() + 1);
-        }
-        if (position.y - 1 >= 0) {
-            const neighbor = this.matrix[position.y - 1][position.x];
-            if (neighbor.getType() !== CellType.Mine)
-                neighbor.setValue(neighbor.getValue() + 1);
-        }
-        if (position.y - 1 >= 0 && position.x + 1 < width) {
-            const neighbor = this.matrix[position.y - 1][position.x + 1];
-            if (neighbor.getType() !== CellType.Mine)
-                neighbor.setValue(neighbor.getValue() + 1);
-        }
-        if (position.x + 1 < width) {
-            const neighbor = this.matrix[position.y][position.x + 1];
-            if (neighbor.getType() !== CellType.Mine)
-                neighbor.setValue(neighbor.getValue() + 1);
-        }
-        if (position.y + 1 < height && position.x + 1 < width) {
-            const neighbor = this.matrix[position.y + 1][position.x + 1];
-            if (neighbor.getType() !== CellType.Mine)
-                neighbor.setValue(neighbor.getValue() + 1);
-        }
-        if (position.y + 1 < height) {
-            const neighbor = this.matrix[position.y + 1][position.x];
-            if (neighbor.getType() !== CellType.Mine)
-                neighbor.setValue(neighbor.getValue() + 1);
-        }
-        if (position.y + 1 < height && position.x - 1 >= 0) {
-            const neighbor = this.matrix[position.y + 1][position.x - 1];
-            if (neighbor.getType() !== CellType.Mine)
-                neighbor.setValue(neighbor.getValue() + 1);
-        }
-        if (position.x - 1 >= 0) {
-            const neighbor = this.matrix[position.y][position.x - 1];
-            if (neighbor.getType() !== CellType.Mine)
-                neighbor.setValue(neighbor.getValue() + 1);
-        }
+        };
+        if (position.y - 1 >= 0 && position.x - 1 >= 0)
+            update(new Position(position.x - 1, position.y - 1));
+        if (position.y - 1 >= 0)
+            update(new Position(position.x, position.y - 1));
+        if (position.y - 1 >= 0 && position.x + 1 < width)
+            update(new Position(position.x + 1, position.y - 1));
+        if (position.x + 1 < width)
+            update(new Position(position.x + 1, position.y));
+        if (position.y + 1 < height && position.x + 1 < width)
+            update(new Position(position.x + 1, position.y + 1));
+        if (position.y + 1 < height)
+            update(new Position(position.x, position.y + 1));
+        if (position.y + 1 < height && position.x - 1 >= 0)
+            update(new Position(position.x - 1, position.y + 1));
+        if (position.x - 1 >= 0)
+            update(new Position(position.x - 1, position.y));
     }
 }
