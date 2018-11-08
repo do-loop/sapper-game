@@ -83,17 +83,26 @@ class GameManager {
         }
     }
     _getValue(cell) {
-        switch (cell.getType()) {
-            case CellType.Empty:
+        const type = cell.getType();
+        const state =  cell.getState();
+        switch (type) {
             case CellType.Mine:
-                return "";
-            case CellType.Number: {
-                switch (cell.getState()) {
-                    case CellState.Closed:
+            case CellType.Empty: {
+                switch (state) {
                     case CellState.Tagged:
+                        return "?";
+                    default:
+                        return "";
+                }
+            }
+            case CellType.Number: {
+                switch (state) {
+                    case CellState.Closed:
                     case CellState.Broken:
                         return "";
-                    default:
+                    case CellState.Tagged:
+                        return "?";
+                    case CellState.Opened:
                         return cell.getValue();
                 }
             }
