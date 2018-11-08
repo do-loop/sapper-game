@@ -39,12 +39,19 @@ class GameManager {
                 const cell = game.rows[i].insertCell();
                 $.setId(cell, position.toString());
                 $.setClass($.getById(position.toString()), this._getClass(matrix[i][j]));
-                // TODO: Убрать эти вызовы.
-                $.setClick(cell, `gameManager.open(new Position(${position.x}, ${position.y}))`);
-                $.setContextMenu(cell, `gameManager.tag(new Position(${position.x}, ${position.y}))`);
+                this._setButtonActions(cell, position);
                 $.setValue(cell, this._getValue(matrix[i][j]));
             }
         }
+    }
+    _setButtonActions(cell, position) {
+        cell.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            gameManager.tag(position);
+        }, false);
+        cell.addEventListener("click", () => {
+            gameManager.open(position);
+        }, false);
     }
     _update() {
         const matrix = this.game.getMatrix();
