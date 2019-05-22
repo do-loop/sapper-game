@@ -1,6 +1,6 @@
 {
    "scripts": {
-      "start": ""
+      "start": "node --version"
    },
    "dependencies": { }
 }
